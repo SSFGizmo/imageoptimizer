@@ -11,19 +11,10 @@ class AfterFileProcessing extends AbstractEventListener
     public function __invoke(AfterFileProcessingEvent $event): void
     {
         if ($event->getProcessedFile()->isUpdated() && !$event->getProcessedFile()->usesOriginalFile()) {
-            $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
-            if($typo3Version->getMajorVersion() < 12) {
-                $this->getService()->process(
-                    Environment::getPublicPath() . '/' . ltrim($event->getProcessedFile()->getPublicUrl(true), '/'),
-                    $event->getProcessedFile()->getExtension()
-                );
-            }
-            else {
-                $this->getService()->process(
-                    Environment::getPublicPath() . '/' . ltrim($event->getProcessedFile()->getPublicUrl(), '/'),
-                    $event->getProcessedFile()->getExtension()
-                );
-            }
+            $this->getService()->process(
+                Environment::getPublicPath() . '/' . ltrim($event->getProcessedFile()->getPublicUrl(), '/'),
+                $event->getProcessedFile()->getExtension()
+            );
         }
     }
 }

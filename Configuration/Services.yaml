@@ -1,4 +1,15 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Lemming\Imageoptimizer\:
+    resource: '../Classes/*'
+
+  Lemming\Imageoptimizer\Report\StatusReport:
+    autoconfigure: true
+
   Lemming\Imageoptimizer\EventListener\BeforeFileAdded:
     tags:
       - name: event.listener
